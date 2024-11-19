@@ -1,0 +1,43 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RegexTester {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Regular Expression Tester!");
+
+        while (true) {
+            System.out.println("\nEnter a regular expression (or type 'exit' to quit):");
+            String regex = scanner.nextLine();
+            if (regex.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting the program.");
+                break;
+            }
+
+            System.out.println("Enter the text to test against the regular expression:");
+            String inputText = scanner.nextLine();
+
+            try {
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(inputText);
+
+                boolean found = false;
+                while (matcher.find()) {
+                    found = true;
+                    System.out.println("Match found: " + matcher.group());
+                    System.out.println("Match starts at index " + matcher.start() + " and ends at index " + matcher.end());
+                }
+                if (!found) {
+                    System.out.println("No match found.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid regular expression: " + e.getMessage());
+            }
+        }
+
+        scanner.close();
+    }
+}
